@@ -76,13 +76,10 @@ Polygon.io is a financial data platform providing real-time and historical stock
 | Layer | Technology |
 |---|---|
 | **Frontend** | React.js (Vite) |
-| **Styling** | Tailwind CSS + Custom CSS Variables |
 | **Charts** | Lightweight Charts (TradingView) |
-| **State Management** | Zustand |
 | **API Integration** | Polygon.io REST API + WebSockets |
 | **HTTP Client** | Axios |
 | **Routing** | React Router v6 |
-| **Icons** | Lucide React |
 | **Version Control** | Git + GitHub |
 | **Deployment** | Vercel |
 
