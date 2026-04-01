@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equitix | Professional Market Data</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">EQUITIX <span>MARKETS</span></div>
+        <div class="search-section">
+            <div class="search-bar">
+                <input type="text" id="tickerInput" list="trendingList" placeholder="Symbol (e.g. TSLA)">
+                <datalist id="trendingList">
+                    <option value="TSLA">Tesla</option>
+                    <option value="NVDA">Nvidia</option>
+                    <option value="AAPL">Apple</option>
+                    <option value="MSFT">Microsoft</option>
+                    <option value="BTCUSD">Bitcoin</option>
+                </datalist>
+                <button onclick="fetchData()">Update</button>
+            </div>
+            <div class="trending-tags">
+                Trending: <span class="tag" onclick="qp('TSLA')">TSLA</span>
+                <span class="tag" onclick="qp('NVDA')">NVDA</span>
+                <span class="tag" onclick="qp('AAPL')">AAPL</span>
+            </div>
+        </div>
+        <div class="market-info">
+            <span id="marketStatus" class="status-open">MARKET LIVE</span>
+            <div id="lastUpdated" style="font-size:0.7rem; color: #a0a0b0; text-align:right; margin-top:5px">Updated: Never</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <main class="hero-section">
+            <div class="ticker-info">
+                <h1 id="stockSymbol">AAPL</h1>
+                <div id="stockName" class="name">Apple Inc.</div>
+                <div id="stockPrice" class="price-main">$0.00</div>
+                <div id="stockChange" class="gain">+0.00%</div>
+            </div>
+            <div class="meta-container">
+                <div class="section-title">DAILY SNAPSHOT</div>
+                <div class="meta-grid">
+                    <div class="meta-item"><label>Prev Close</label><span id="prevClose">$0.00</span></div>
+                    <div class="meta-item"><label>Open</label><span id="openPrice">$0.00</span></div>
+                    <div class="meta-item"><label>Volume</label><span id="volume">0.00M</span></div>
+                    <div class="meta-item"><label>Day High</label><span id="dayHigh">$0.00</span></div>
+                    <div class="meta-item"><label>Day Low</label><span id="dayLow">$0.00</span></div>
+                    <div class="meta-item"><label>Market</label><span>NASDAQ</span></div>
+                </div>
+            </div>
+        </main>
+
+        <!-- History & Dividends -->
+        <div class="data-grid">
+            <section class="history-card">
+                <div class="section-title">5-DAY PERFORMANCE HISTORY</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>DATE</th>
+                            <th>OPEN</th>
+                            <th>CLOSE</th>
+                            <th>HIGH</th>
+                            <th>LOW</th>
+                            <th>CHANGE</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyBody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="dividend-card">
+                <div class="section-title">DIVIDEND HISTORY</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>DATE</th>
+                            <th>CASH AMOUNT</th>
+                            <th>EX-DIVIDEND DATE</th>
+                            <th>DECLARATION DATE</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dividendBody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
