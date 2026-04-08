@@ -1,4 +1,4 @@
-const API_KEY = ""; // 1. Put your Polygon API Key
+const API_KEY = ""; 
 let currentPrice = 0; let curSym = "AAPL";
 
 async function get(url) {
@@ -22,7 +22,7 @@ async function fetchData(ticker = document.getElementById("tickerInput").value |
     if (snap.results) {
         currentPrice = snap.results[0].c;
         updateHero(curSym, snap.results[0]);
-    } else { simulateLive(); } // No API Key -> Start Live Simulator
+    } else { simulateLive(); } 
 
     if (hist.results) updateHistory(hist.results.reverse().slice(0, 5));
     if (divs.results) updateDividends(divs.results);
@@ -66,6 +66,5 @@ function updateDividends(data) {
     </tr>`).join("");
 }
 
-// Auto-Refresh every 30 seconds
 setInterval(() => fetchData(curSym), 30000);
 window.onload = () => fetchData(curSym);
