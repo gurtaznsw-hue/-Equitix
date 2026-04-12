@@ -1,5 +1,7 @@
-const API_KEY = ""; 
+const API_KEY = "";
 let currentPrice = 0; let curSym = "AAPL";
+let historyData = [];
+
 
 async function get(url) {
     const res = await fetch(`${url}${url.includes('?') ? '&' : '?'}apiKey=${API_KEY}`);
@@ -22,10 +24,14 @@ async function fetchData(ticker = document.getElementById("tickerInput").value |
     if (snap.results) {
         currentPrice = snap.results[0].c;
         updateHero(curSym, snap.results[0]);
-    } else { simulateLive(); } 
+    } else { simulateLive(); }
 
-    if (hist.results) updateHistory(hist.results.reverse().slice(0, 5));
+    if (hist.results) {
+        historyData = hist.results.reverse().slice(0, 5);
+        renderHistory(historyData);
+    }
     if (divs.results) updateDividends(divs.results);
+
     document.getElementById("lastUpdated").innerText = `Updated: ${new Date().toLocaleTimeString()}`;
 }
 
@@ -34,8 +40,20 @@ function simulateLive() {
     const movement = (Math.random() - 0.5) * 2;
     currentPrice = parseFloat((currentPrice + movement).toFixed(2));
     updateHero(curSym, { c: currentPrice, o: 148, h: currentPrice + 1, l: currentPrice - 1, v: 50000000 });
+
+    if (historyData.length === 0) {
+        historyData = [
+            { t: Date.now() - 864e5, o: 145, c: 148, h: 150, l: 144 },
+            { t: Date.now() - 1728e5, o: 150, c: 147, h: 151, l: 146 },
+            { t: Date.now() - 2592e5, o: 142, c: 145, h: 146, l: 141 },
+            { t: Date.now() - 3456e5, o: 140, c: 138, h: 141, l: 137 },
+            { t: Date.now() - 4320e5, o: 144, c: 146, h: 147, l: 143 }
+        ];
+        renderHistory(historyData);
+    }
     console.log("Simulating Live Mode...");
 }
+
 
 function updateHero(t, d) {
     const ch = (((d.c - d.o) / d.o) * 100).toFixed(2);
@@ -51,13 +69,29 @@ function updateHero(t, d) {
     el.className = ch >= 0 ? 'gain' : 'loss';
 }
 
-function updateHistory(days) {
+function renderHistory(days) {
     document.getElementById("historyBody").innerHTML = days.map(d => `<tr>
         <td>${new Date(d.t).toLocaleDateString()}</td>
         <td>$${d.o}</td><td>$${d.c}</td><td>$${d.h}</td><td>$${d.l}</td>
-        <td class="${d.c >= d.o ? 'gain' : 'loss'}">${(((d.c - d.o)/d.o)*100).toFixed(2)}%</td>
+        <td class="${d.c >= d.o ? 'gain' : 'loss'}">${(((d.c - d.o) / d.o) * 100).toFixed(2)}%</td>
     </tr>`).join("");
 }
+
+
+function filterHistory() {
+    const profitableDays = historyData.filter(day => day.c >= day.o);
+    renderHistory(profitableDays);
+}
+
+function sortHistory() {
+    const sortedByHigh = [...historyData].sort((a, b) => b.h - a.h);
+    renderHistory(sortedByHigh);
+}
+
+function toggleTheme() {
+    document.body.classList.toggle("dark-mode");
+}
+
 
 function updateDividends(data) {
     document.getElementById("dividendBody").innerHTML = data.map(d => `<tr>
