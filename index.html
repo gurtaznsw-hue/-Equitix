@@ -30,12 +30,14 @@
         </div>
         <div class="market-info">
             <span id="marketStatus" class="status-open">MARKET LIVE</span>
+            <button class="theme-btn" onclick="toggleTheme()" style="margin-left: 10px;">🌓 Theme</button>
             <div id="lastUpdated" style="font-size:0.7rem; color: #a0a0b0; text-align:right; margin-top:5px">Updated: Never</div>
+
         </div>
     </header>
 
     <div class="container">
-
+        
         <main class="hero-section">
             <div class="ticker-info">
                 <h1 id="stockSymbol">AAPL</h1>
@@ -56,11 +58,17 @@
             </div>
         </main>
 
-        <!-- History & Dividends -->
+     
         <div class="data-grid">
             <section class="history-card">
                 <div class="section-title">5-DAY PERFORMANCE HISTORY</div>
+                <div class="controls">
+                    <button class="btn-small" onclick="sortHistory()">Sort: High Price</button>
+                    <button class="btn-small" onclick="filterHistory()">Show Only Gains</button>
+                    <button class="btn-small" onclick="fetchData()">Reset</button>
+                </div>
                 <table>
+
                     <thead>
                         <tr>
                             <th>DATE</th>
@@ -72,6 +80,7 @@
                         </tr>
                     </thead>
                     <tbody id="historyBody">
+                       
                     </tbody>
                 </table>
             </section>
@@ -88,6 +97,7 @@
                         </tr>
                     </thead>
                     <tbody id="dividendBody">
+                        
                     </tbody>
                 </table>
             </section>
